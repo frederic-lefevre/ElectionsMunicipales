@@ -71,6 +71,10 @@ public class ElectionsUI  extends JFrame {
 		calculMax.getCalculControl().getBoutonCalcul().addActionListener(scm);
 	}
 
+	public static String getPropertyFile() {
+		return DEFAULT_PROP_FILE;
+	}
+	
 	public static void main(String[] args) {
 		
 		Control.init(DEFAULT_PROP_FILE);
