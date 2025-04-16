@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 Frédéric Lefèvre
+ * Copyright (c) 2025 Frédéric Lefèvre
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,58 +33,48 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-
 public class ElectionsUI  extends JFrame {
 
 	private static final long serialVersionUID = 5558620192220743683L;
 	
 	private static final String DEFAULT_PROP_FILE = "election.properties";
 	
-	private InformationsCalculPanel calcul, calculMax ;
-	
-	public ElectionsUI() {
-		
-		Control ctrl = new Control(DEFAULT_PROP_FILE) ;
-		
-		if (ctrl.init()) {
-			Election e = new Election(ctrl.getProps(), ctrl.getElectionLog()) ;
-			
-			setBounds(50, 50, 1000, 700);
-			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			setTitle("Calculateur de sièges") ;
-			
-			JPanel siegePanel = new JPanel() ;
-			siegePanel.setLayout(new BoxLayout(siegePanel, BoxLayout.Y_AXIS));		
-			calcul = new InformationsCalculPanel(e, false, ctrl.getElectionLog()) ;
-			siegePanel.add(calcul.getCalculInfos()) ;
-			
-			JPanel maxSiegePanel = new JPanel() ;
-			maxSiegePanel.setLayout(new BoxLayout(maxSiegePanel, BoxLayout.Y_AXIS));
-			calculMax = new InformationsCalculPanel(e, true, ctrl.getElectionLog()) ;
-			maxSiegePanel.add(calculMax.getCalculInfos()) ;
-			
-			JTabbedPane operationTab = new JTabbedPane() ;
-			Font font = new Font("Verdana", Font.BOLD, 14);
-			operationTab.setFont(font) ;
-			operationTab.addTab("Calcul sièges", siegePanel) ;
-			operationTab.addTab("Calcul maximum de sièges en fonction d'un pourcentage", maxSiegePanel) ;
-				
-			getContentPane().add(operationTab) ;
-			
-			StartCalcul sc = new StartCalcul(e, calcul, ctrl.getElectionLog()) ;
-			calcul.getCalculControl().getBoutonCalcul().addActionListener(sc) ;
-			StartCalcul scm = new StartCalcul(e, calculMax, ctrl.getElectionLog()) ;
-			calculMax.getCalculControl().getBoutonCalcul().addActionListener(scm) ;
-			
-		} else {
-			System.out.println("Initialisation failed") ;
-		}
+	private ElectionsUI() {
+
+		Election e = new Election(Control.getProps(), Control.getElectionLog());
+
+		setBounds(50, 50, 1000, 700);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Calculateur de sièges");
+
+		JPanel siegePanel = new JPanel();
+		siegePanel.setLayout(new BoxLayout(siegePanel, BoxLayout.Y_AXIS));
+		InformationsCalculPanel calcul = new InformationsCalculPanel(e, false, Control.getElectionLog());
+		siegePanel.add(calcul.getCalculInfos());
+
+		JPanel maxSiegePanel = new JPanel();
+		maxSiegePanel.setLayout(new BoxLayout(maxSiegePanel, BoxLayout.Y_AXIS));
+		InformationsCalculPanel calculMax = new InformationsCalculPanel(e, true, Control.getElectionLog());
+		maxSiegePanel.add(calculMax.getCalculInfos());
+
+		JTabbedPane operationTab = new JTabbedPane();
+		Font font = new Font("Verdana", Font.BOLD, 14);
+		operationTab.setFont(font);
+		operationTab.addTab("Calcul sièges", siegePanel);
+		operationTab.addTab("Calcul maximum de sièges en fonction d'un pourcentage", maxSiegePanel);
+
+		getContentPane().add(operationTab);
+
+		StartCalcul sc = new StartCalcul(e, calcul, Control.getElectionLog());
+		calcul.getCalculControl().getBoutonCalcul().addActionListener(sc);
+		StartCalcul scm = new StartCalcul(e, calculMax, Control.getElectionLog());
+		calculMax.getCalculControl().getBoutonCalcul().addActionListener(scm);
 	}
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
+		
+		Control.init(DEFAULT_PROP_FILE);
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -96,5 +86,4 @@ public class ElectionsUI  extends JFrame {
 			}
 		});
 	}
-
 }
