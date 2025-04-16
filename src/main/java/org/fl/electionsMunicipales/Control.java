@@ -32,31 +32,41 @@ import org.fl.util.RunningContext;
 
 public class Control {
 
-	private Logger electionLog;
+	private static Logger electionLog;	
+	private static AdvancedProperties electionsProperties;
+	private static RunningContext electionRunningContext;
+	private static boolean initialized = false;
 	
-	private String propFile;
-	private AdvancedProperties props;
-	
-	public Control(String p) {
-		propFile = p ;
+	private Control() {
 	}
 
-	public boolean init() {
+	public static void init(String proertyFile) {
 		
 		// access to properties and logger
-		RunningContext electionRunningContext = new RunningContext("org.fl.electionsMunicipales", URI.create(propFile));
-		props = electionRunningContext.getProps();
-		electionLog = Logger.getLogger(Control.class.getName());      
-              	    
-        return true;
+		electionRunningContext = new RunningContext("org.fl.electionsMunicipales", URI.create(proertyFile));
+		electionsProperties = electionRunningContext.getProps();
+		electionLog = Logger.getLogger(Control.class.getName());
+		initialized = true;
 	}
 
-	public Logger getElectionLog() {
+	public static Logger getElectionLog() {
+		if (!initialized) {
+			init(ElectionsUI.getPropertyFile());
+		}
 		return electionLog;
 	}
 	
-	public AdvancedProperties getProps() {
-		return props;
+	public static AdvancedProperties getProps() {
+		if (!initialized) {
+			init(ElectionsUI.getPropertyFile());
+		}
+		return electionsProperties;
 	}
 
+	public static RunningContext getRunningContext() {
+		if (!initialized) {
+			init(ElectionsUI.getPropertyFile());
+		}
+		return electionRunningContext;
+	}
 }
