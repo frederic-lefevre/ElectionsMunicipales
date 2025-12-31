@@ -1,7 +1,7 @@
 /*
  * MIT License
 
-Copyright (c) 2017, 2023 Frederic Lefevre
+Copyright (c) 2017, 2025 Frederic Lefevre
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -26,19 +26,14 @@ package org.fl.electionsMunicipales;
 
 public class ListeElectorale {
 
-	private String nom ;
-	
+	private final String nom;
+
 	public String getNom() {
 		return nom;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
 	public ListeElectorale(String n) {
-		
-		nom = n ;
+		nom = n;
 	}
 
 }
