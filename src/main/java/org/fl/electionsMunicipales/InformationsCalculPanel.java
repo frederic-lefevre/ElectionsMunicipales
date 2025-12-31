@@ -42,23 +42,23 @@ import javax.swing.JTextField;
 
 public class InformationsCalculPanel {
 
-	private JPanel calculInfos;
-	private JTextArea lblCalculInfos;
+	private static final Logger eLog = Logger.getLogger(InformationsCalculPanel.class.getName());
+	
+	private final JPanel calculInfos;
+	private final JTextArea lblCalculInfos;
 	private final Election election;
-	private ArrayList<ListeElectoraleUI> listesUi;
-	private CalculControl calculControl;
-	private Logger eLog;
-	private JTextField jExpr;
+	private final ArrayList<ListeElectoraleUI> listesUi;
+	private final CalculControl calculControl;
+	private final JTextField jExpr;
 	private StringBuilder messageCalcul;
 	private final static String newLine = System.getProperty("line.separator");
-	private boolean calculMaxSiege;
+	private final boolean calculMaxSiege;
 	private final static String MessageStandard = "<html><p>Remplissez:<ul><li>les nombres de voix (qui ont priorité sur les pourcentages)</li><li>ou les pourcentages et le total des voix exprimées</li></ul></p></html>";
 	private final static String MessageMaxStandard = "<html><p>Remplissez:<ul><li>le total des voix exprimées</li><li>le pourcentage de la liste 1</li><li>les pourcentages minimum des listes 2 et 3</li></ul></p></html>";
 
-	public InformationsCalculPanel(Election e, boolean cms, Logger l) {
+	public InformationsCalculPanel(Election e, boolean cms) {
 
 		election = e;
-		eLog = l;
 		calculMaxSiege = cms;
 		calculInfos = new JPanel();
 		calculInfos.setLayout(new BoxLayout(calculInfos, BoxLayout.Y_AXIS));

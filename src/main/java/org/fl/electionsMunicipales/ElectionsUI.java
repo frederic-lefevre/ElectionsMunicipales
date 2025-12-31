@@ -49,12 +49,12 @@ public class ElectionsUI  extends JFrame {
 
 		JPanel siegePanel = new JPanel();
 		siegePanel.setLayout(new BoxLayout(siegePanel, BoxLayout.Y_AXIS));
-		InformationsCalculPanel calcul = new InformationsCalculPanel(election, false, Control.getElectionLog());
+		InformationsCalculPanel calcul = new InformationsCalculPanel(election, false);
 		siegePanel.add(calcul.getCalculInfos());
 
 		JPanel maxSiegePanel = new JPanel();
 		maxSiegePanel.setLayout(new BoxLayout(maxSiegePanel, BoxLayout.Y_AXIS));
-		InformationsCalculPanel calculMax = new InformationsCalculPanel(election, true, Control.getElectionLog());
+		InformationsCalculPanel calculMax = new InformationsCalculPanel(election, true);
 		maxSiegePanel.add(calculMax.getCalculInfos());
 
 		JTabbedPane operationTab = new JTabbedPane();
