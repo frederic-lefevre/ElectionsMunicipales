@@ -27,48 +27,64 @@ package org.fl.electionsMunicipales;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-public class ElectionsUI  extends JFrame {
+import org.fl.util.swing.ApplicationTabbedPane;
+
+public class ElectionsUI extends JFrame {
 
 	private static final long serialVersionUID = 5558620192220743683L;
 	
 	private static final String DEFAULT_PROP_FILE = "election.properties";
 	
+	private static final Logger logger = Logger.getLogger(ElectionsUI.class.getName());
+	
 	private ElectionsUI() {
 
-		Election e = new Election(Control.getProps(), Control.getElectionLog());
-
-		setBounds(50, 50, 1000, 700);
+		setBounds(50, 50, 1700, 900);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Calculateur de sièges");
 
-		JPanel siegePanel = new JPanel();
-		siegePanel.setLayout(new BoxLayout(siegePanel, BoxLayout.Y_AXIS));
-		InformationsCalculPanel calcul = new InformationsCalculPanel(e, false, Control.getElectionLog());
-		siegePanel.add(calcul.getCalculInfos());
+		ApplicationTabbedPane electionTabs = new ApplicationTabbedPane(Control.getRunningContext());
 
-		JPanel maxSiegePanel = new JPanel();
-		maxSiegePanel.setLayout(new BoxLayout(maxSiegePanel, BoxLayout.Y_AXIS));
-		InformationsCalculPanel calculMax = new InformationsCalculPanel(e, true, Control.getElectionLog());
-		maxSiegePanel.add(calculMax.getCalculInfos());
+		try {
+			Election election = new Election(Control.getProps());
 
-		JTabbedPane operationTab = new JTabbedPane();
-		Font font = new Font("Verdana", Font.BOLD, 14);
-		operationTab.setFont(font);
-		operationTab.addTab("Calcul sièges", siegePanel);
-		operationTab.addTab("Calcul maximum de sièges en fonction d'un pourcentage", maxSiegePanel);
+			JPanel siegePanel = new JPanel();
+			siegePanel.setLayout(new BoxLayout(siegePanel, BoxLayout.Y_AXIS));
+			InformationsCalculPanel calcul = new InformationsCalculPanel(election, false);
+			siegePanel.add(calcul.getCalculInfos());
 
-		getContentPane().add(operationTab);
+			JPanel maxSiegePanel = new JPanel();
+			maxSiegePanel.setLayout(new BoxLayout(maxSiegePanel, BoxLayout.Y_AXIS));
+			InformationsCalculPanel calculMax = new InformationsCalculPanel(election, true);
+			maxSiegePanel.add(calculMax.getCalculInfos());
 
-		StartCalcul sc = new StartCalcul(e, calcul, Control.getElectionLog());
-		calcul.getCalculControl().getBoutonCalcul().addActionListener(sc);
-		StartCalcul scm = new StartCalcul(e, calculMax, Control.getElectionLog());
-		calculMax.getCalculControl().getBoutonCalcul().addActionListener(scm);
+			JTabbedPane operationTab = new JTabbedPane();
+			Font font = new Font("Verdana", Font.BOLD, 14);
+			operationTab.setFont(font);
+			operationTab.addTab("Calcul de sièges en fonction des voix", siegePanel);
+			operationTab.addTab("Calcul maximum de sièges en fonction d'un pourcentage", maxSiegePanel);
+
+			StartCalcul sc = new StartCalcul(election, calcul);
+			calcul.getCalculControl().getBoutonCalcul().addActionListener(sc);
+			StartCalcul scm = new StartCalcul(election, calculMax);
+			calculMax.getCalculControl().getBoutonCalcul().addActionListener(scm);
+
+			electionTabs.add(operationTab, "Calcul de sièges", 0);
+			electionTabs.setSelectedIndex(0);
+
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Exception during application startup", e);
+		}
+
+		getContentPane().add(electionTabs);		
 	}
 
 	public static String getPropertyFile() {

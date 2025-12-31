@@ -1,7 +1,7 @@
 /*
  * MIT License
 
-Copyright (c) 2017, 2023 Frederic Lefevre
+Copyright (c) 2017, 2025 Frederic Lefevre
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -26,10 +26,10 @@ package org.fl.electionsMunicipales;
 
 public class InformationsCalcul {
 
-	private String status ;
+	private String status;
 	
 	public InformationsCalcul(String st) {
-		status = st ;
+		status = st;
 	}
 	
 	public String getStatus() {
@@ -39,6 +39,4 @@ public class InformationsCalcul {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
-
 }

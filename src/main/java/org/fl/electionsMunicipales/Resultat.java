@@ -1,7 +1,7 @@
 /*
  * MIT License
 
-Copyright (c) 2017, 2023 Frederic Lefevre
+Copyright (c) 2017, 2025 Frederic Lefevre
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -26,40 +26,40 @@ package org.fl.electionsMunicipales;
 
 public class Resultat {
 
-	private ListeElectorale le ;
-	private int nbVoix ;
-	
+	private ListeElectorale listeElectorale;
+	private int nbVoix;
+
 	// nombre de siege total
-	private int nbSiege ;
+	private int nbSiege;
 	// nombre de siège obtenus à la proportionnelle
-	private int nbSiegeProportionnel ;
-	
+	private int nbSiegeProportionnel;
+
 	private double reste;
 	private double pourcentage;
-	
+
 	public Resultat(ListeElectorale l) {
-		le = l ;
-		nbSiege = 0 ;
+		listeElectorale = l;
+		nbSiege = 0;
 	}
-	
+
 	public Resultat(Resultat r) {
-		le = r.le ;
-		nbVoix = r.nbVoix ;
-		nbSiege = r.nbSiege ;
-		nbSiegeProportionnel = r.nbSiegeProportionnel ;
-		reste = r.reste ;
-		pourcentage = r.pourcentage ;
+		listeElectorale = r.listeElectorale;
+		nbVoix = r.nbVoix;
+		nbSiege = r.nbSiege;
+		nbSiegeProportionnel = r.nbSiegeProportionnel;
+		reste = r.reste;
+		pourcentage = r.pourcentage;
 	}
 
 	public void modify(Resultat r) {
-		le = r.le ;
-		nbVoix = r.nbVoix ;
-		nbSiege = r.nbSiege ;
-		nbSiegeProportionnel = r.nbSiegeProportionnel ;
-		reste = r.reste ;
-		pourcentage = r.pourcentage ;
+		listeElectorale = r.listeElectorale;
+		nbVoix = r.nbVoix;
+		nbSiege = r.nbSiege;
+		nbSiegeProportionnel = r.nbSiegeProportionnel;
+		reste = r.reste;
+		pourcentage = r.pourcentage;
 	}
-	
+
 	public int getNbVoix() {
 		return nbVoix;
 	}
@@ -90,9 +90,9 @@ public class Resultat {
 	}
 
 	public ListeElectorale getListeElectorale() {
-		return le;
+		return listeElectorale;
 	}
-	
+
 	public void setSiege(int s) {
 		nbSiege = s;
 	}

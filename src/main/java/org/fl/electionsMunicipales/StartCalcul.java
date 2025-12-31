@@ -1,7 +1,7 @@
 /*
  * MIT License
 
-Copyright (c) 2017, 2023 Frederic Lefevre
+Copyright (c) 2017, 2025 Frederic Lefevre
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -26,49 +26,45 @@ package org.fl.electionsMunicipales;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Logger;
 
 public class StartCalcul  implements ActionListener {
 
-	private CalculControl calculControl ;
-	private Election election;
-	private Logger eLog ;
-	private InformationsCalculPanel calculInfos ;
-	
-	public StartCalcul(Election e,  InformationsCalculPanel icp, Logger l) {
-		election = e ;
-		calculInfos = icp ;
-		calculControl = icp.getCalculControl() ;
-		eLog = l ;
+	private final CalculControl calculControl;
+	private final Election election;
+	private final InformationsCalculPanel calculInfos;
+
+	public StartCalcul(Election e, InformationsCalculPanel icp) {
+		election = e;
+		calculInfos = icp;
+		calculControl = icp.getCalculControl();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		
-		eLog.info("Calcul demandé") ;
-		calculControl.setTriggered(true) ;
-		
+
+		calculControl.setTriggered(true);
+
 		// Lire les chiffres rentr�s
-		calculInfos.resetMessageCalcul() ;
+		calculInfos.resetMessageCalcul();
 		if (calculInfos.isCalculMaxSiege()) {
 			if (calculInfos.setPourcentages()) {
-				election.setPourcentagesIn() ;
+				election.setPourcentagesIn();
 			} else {
-				election.setInvalidInput() ;
-				calculInfos.setLblCalculInfos(calculInfos.getMessageCalcul()) ;
+				election.setInvalidInput();
+				calculInfos.setLblCalculInfos(calculInfos.getMessageCalcul());
 			}
 		} else {
 			if (calculInfos.setNbvoix()) {
-				election.setVoixIn() ;
+				election.setVoixIn();
 			} else if (calculInfos.setPourcentages()) {
-				election.setPourcentagesIn() ;
+				election.setPourcentagesIn();
 			} else {
-				election.setInvalidInput() ;
-				calculInfos.setLblCalculInfos(calculInfos.getMessageCalcul()) ;
+				election.setInvalidInput();
+				calculInfos.setLblCalculInfos(calculInfos.getMessageCalcul());
 			}
 		}
-		
-		CalculSieges cs = new CalculSieges(election, calculInfos, eLog) ;
-		cs.execute() ;
+
+		CalculSieges cs = new CalculSieges(election, calculInfos);
+		cs.execute();
 	}
 }

@@ -28,24 +28,21 @@ import java.util.logging.Logger;
 
 import javax.swing.SwingWorker;
 
+public class CalculSieges extends SwingWorker<String,InformationsCalcul> {
 
-public class CalculSieges   extends SwingWorker<String,InformationsCalcul> {
+	private static final Logger eLog = Logger.getLogger(CalculSieges.class.getName());
+	
+	private final InformationsCalculPanel calculInfos;
+	private final Election election;
 
-	private InformationsCalculPanel calculInfos;
-	private Election election;
-	private Logger eLog;
-
-	public CalculSieges(Election e, InformationsCalculPanel icp, Logger l) {
+	public CalculSieges(Election e, InformationsCalculPanel icp) {
 
 		election = e;
-		eLog = l;
 		calculInfos = icp;
 	}
 
 	@Override
 	public String doInBackground() {
-
-		eLog.info("Début du calcul");
 
 		// Calculer
 		if (election.validInput()) {
@@ -58,7 +55,6 @@ public class CalculSieges   extends SwingWorker<String,InformationsCalcul> {
 			eLog.info("Entrée invalide");
 		}
 
-		eLog.info("Fin du calcul");
 		return "";
 	}
 
