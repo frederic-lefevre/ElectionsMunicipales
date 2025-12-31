@@ -41,7 +41,7 @@ public class ElectionsUI  extends JFrame {
 	
 	private ElectionsUI() {
 
-		Election election = new Election(Control.getProps(), Control.getElectionLog());
+		Election election = new Election(Control.getProps());
 
 		setBounds(50, 50, 1000, 700);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
