@@ -1,7 +1,7 @@
 /*
  * MIT License
 
-Copyright (c) 2017, 2023 Frederic Lefevre
+Copyright (c) 2017, 2025 Frederic Lefevre
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -29,9 +29,9 @@ import java.awt.event.ActionListener;
 
 public class StartCalcul  implements ActionListener {
 
-	private CalculControl calculControl;
-	private Election election;
-	private InformationsCalculPanel calculInfos;
+	private final CalculControl calculControl;
+	private final Election election;
+	private final InformationsCalculPanel calculInfos;
 
 	public StartCalcul(Election e, InformationsCalculPanel icp) {
 		election = e;

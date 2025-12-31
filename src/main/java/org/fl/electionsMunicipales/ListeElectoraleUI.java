@@ -1,7 +1,7 @@
 /*
  * MIT License
 
-Copyright (c) 2017, 2023 Frederic Lefevre
+Copyright (c) 2017, 2025 Frederic Lefevre
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -32,53 +32,52 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class ListeElectoraleUI {
+	
+	private final Resultat resultatListe;
+	private final JLabel labelListe;
+	private final JTextField score;
+	private final JTextField pourcent;
+	private final JLabel nbSiege;
 
-	
-	private Resultat resultatListe ;
-	private JLabel labelListe ;
-	private JTextField score ;
-	private JTextField pourcent ;
-	private JLabel nbSiege ;
-	
 	public ListeElectoraleUI(Resultat r, JPanel panelListe) {
-		super() ;
-		resultatListe = r ;
-		
+		super();
+		resultatListe = r;
+
 		Font font = new Font("Verdana", Font.BOLD, 14);
-		labelListe = new JLabel(resultatListe.getListeElectorale().getNom()) ;
-		labelListe.setFont(font) ;
-		labelListe.setPreferredSize(new Dimension(300, 30)) ;
-		panelListe.add(labelListe) ;
-		
-		score = new JTextField(10) ;
-		score.setPreferredSize(new Dimension(300, 30)) ;
-		score.setFont(font) ;
-		panelListe.add(score) ;
-		
-		pourcent = new JTextField(10) ;
-		pourcent.setPreferredSize(new Dimension(300, 0)) ;
-		pourcent.setFont(font) ;
-		panelListe.add(pourcent) ;
-		
-		nbSiege = new JLabel("?") ;
+		labelListe = new JLabel(resultatListe.getListeElectorale().getNom());
+		labelListe.setFont(font);
+		labelListe.setPreferredSize(new Dimension(300, 30));
+		panelListe.add(labelListe);
+
+		score = new JTextField(10);
+		score.setPreferredSize(new Dimension(300, 30));
+		score.setFont(font);
+		panelListe.add(score);
+
+		pourcent = new JTextField(10);
+		pourcent.setPreferredSize(new Dimension(300, 0));
+		pourcent.setFont(font);
+		panelListe.add(pourcent);
+
+		nbSiege = new JLabel("?");
 		font = new Font("Verdana", Font.BOLD, 24);
-		nbSiege.setFont(font) ;
-		nbSiege.setPreferredSize(new Dimension(300, 30)) ;
-		panelListe.add(nbSiege) ;
+		nbSiege.setFont(font);
+		nbSiege.setPreferredSize(new Dimension(300, 30));
+		panelListe.add(nbSiege);
 	}
 
 	public String getNbVoix() {
-		return score.getText() ;
+		return score.getText();
 	}
-	
+
 	public String getPourcentage() {
-		return pourcent.getText() ;
+		return pourcent.getText();
 	}
-	
+
 	public void displayResultat() {
-		score.setText(String.valueOf(resultatListe.getNbVoix())) ;
-		pourcent.setText(String.valueOf(resultatListe.getPourcentage())) ;
-		nbSiege.setText(String.valueOf(resultatListe.getNbSiege())) ;
+		score.setText(String.valueOf(resultatListe.getNbVoix()));
+		pourcent.setText(String.valueOf(resultatListe.getPourcentage()));
+		nbSiege.setText(String.valueOf(resultatListe.getNbSiege()));
 	}
 	
 }
