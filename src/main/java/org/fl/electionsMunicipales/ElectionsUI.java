@@ -65,9 +65,9 @@ public class ElectionsUI  extends JFrame {
 
 		getContentPane().add(operationTab);
 
-		StartCalcul sc = new StartCalcul(election, calcul, Control.getElectionLog());
+		StartCalcul sc = new StartCalcul(election, calcul);
 		calcul.getCalculControl().getBoutonCalcul().addActionListener(sc);
-		StartCalcul scm = new StartCalcul(election, calculMax, Control.getElectionLog());
+		StartCalcul scm = new StartCalcul(election, calculMax);
 		calculMax.getCalculControl().getBoutonCalcul().addActionListener(scm);
 	}
 
