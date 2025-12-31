@@ -41,7 +41,7 @@ public class ElectionsUI  extends JFrame {
 	
 	private ElectionsUI() {
 
-		Election e = new Election(Control.getProps(), Control.getElectionLog());
+		Election election = new Election(Control.getProps(), Control.getElectionLog());
 
 		setBounds(50, 50, 1000, 700);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,12 +49,12 @@ public class ElectionsUI  extends JFrame {
 
 		JPanel siegePanel = new JPanel();
 		siegePanel.setLayout(new BoxLayout(siegePanel, BoxLayout.Y_AXIS));
-		InformationsCalculPanel calcul = new InformationsCalculPanel(e, false, Control.getElectionLog());
+		InformationsCalculPanel calcul = new InformationsCalculPanel(election, false, Control.getElectionLog());
 		siegePanel.add(calcul.getCalculInfos());
 
 		JPanel maxSiegePanel = new JPanel();
 		maxSiegePanel.setLayout(new BoxLayout(maxSiegePanel, BoxLayout.Y_AXIS));
-		InformationsCalculPanel calculMax = new InformationsCalculPanel(e, true, Control.getElectionLog());
+		InformationsCalculPanel calculMax = new InformationsCalculPanel(election, true, Control.getElectionLog());
 		maxSiegePanel.add(calculMax.getCalculInfos());
 
 		JTabbedPane operationTab = new JTabbedPane();
@@ -65,9 +65,9 @@ public class ElectionsUI  extends JFrame {
 
 		getContentPane().add(operationTab);
 
-		StartCalcul sc = new StartCalcul(e, calcul, Control.getElectionLog());
+		StartCalcul sc = new StartCalcul(election, calcul, Control.getElectionLog());
 		calcul.getCalculControl().getBoutonCalcul().addActionListener(sc);
-		StartCalcul scm = new StartCalcul(e, calculMax, Control.getElectionLog());
+		StartCalcul scm = new StartCalcul(election, calculMax, Control.getElectionLog());
 		calculMax.getCalculControl().getBoutonCalcul().addActionListener(scm);
 	}
 
