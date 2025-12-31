@@ -24,14 +24,11 @@ SOFTWARE.
 
 package org.fl.electionsMunicipales;
 
-import java.util.logging.Logger;
-
 import org.fl.util.AdvancedProperties;
 import org.fl.util.RunningContext;
 
 public class Control {
 
-	private static Logger electionLog;	
 	private static AdvancedProperties electionsProperties;
 	private static RunningContext electionRunningContext;
 	private static boolean initialized = false;
@@ -44,15 +41,7 @@ public class Control {
 		// access to properties and logger
 		electionRunningContext = new RunningContext("org.fl.electionsMunicipales", propertyFile);
 		electionsProperties = electionRunningContext.getProps();
-		electionLog = Logger.getLogger(Control.class.getName());
 		initialized = true;
-	}
-
-	public static Logger getElectionLog() {
-		if (!initialized) {
-			init(ElectionsUI.getPropertyFile());
-		}
-		return electionLog;
 	}
 	
 	public static AdvancedProperties getProps() {
