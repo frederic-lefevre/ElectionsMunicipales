@@ -35,6 +35,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import org.fl.util.RunningContext;
 import org.fl.util.swing.ApplicationTabbedPane;
 
 public class ElectionsUI extends JFrame {
@@ -45,13 +46,22 @@ public class ElectionsUI extends JFrame {
 	
 	private static final Logger logger = Logger.getLogger(ElectionsUI.class.getName());
 	
+	private static RunningContext runningContext;
+	
+	public static RunningContext getRunningContext() {
+		if (runningContext == null) {
+			runningContext = new RunningContext("org.fl.electionsMunicipales", getPropertyFile());
+		}
+		return runningContext;
+	}
+	
 	private ElectionsUI() {
 
 		setBounds(50, 50, 1700, 900);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Calculateur de sièges");
 
-		ApplicationTabbedPane electionTabs = new ApplicationTabbedPane(Control.getRunningContext());
+		ApplicationTabbedPane electionTabs = new ApplicationTabbedPane(getRunningContext());
 
 		try {
 			Election election = new Election(Control.getProps());
@@ -93,7 +103,7 @@ public class ElectionsUI extends JFrame {
 	
 	public static void main(String[] args) {
 		
-		Control.init(DEFAULT_PROP_FILE);
+		getRunningContext();
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

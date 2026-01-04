@@ -29,32 +29,28 @@ import org.fl.util.RunningContext;
 
 public class Control {
 
-	private static AdvancedProperties electionsProperties;
-	private static RunningContext electionRunningContext;
-	private static boolean initialized = false;
+	private static Control controlInstance;
+	
+	private AdvancedProperties electionsProperties;
+	private RunningContext electionRunningContext;
+	
+	private static Control getInstance() {
+		if (controlInstance == null) {
+			controlInstance = new Control(ElectionsUI.getRunningContext());
+		}
+		return controlInstance;
+	}
 	
 	private Control() {
 	}
 
-	public static void init(String propertyFile) {
+	private Control(RunningContext  runningContext) {
 		
-		// access to properties and logger
-		electionRunningContext = new RunningContext("org.fl.electionsMunicipales", propertyFile);
+		electionRunningContext = runningContext;
 		electionsProperties = electionRunningContext.getProps();
-		initialized = true;
 	}
 	
 	public static AdvancedProperties getProps() {
-		if (!initialized) {
-			init(ElectionsUI.getPropertyFile());
-		}
-		return electionsProperties;
-	}
-
-	public static RunningContext getRunningContext() {
-		if (!initialized) {
-			init(ElectionsUI.getPropertyFile());
-		}
-		return electionRunningContext;
+		return getInstance().electionsProperties;
 	}
 }
