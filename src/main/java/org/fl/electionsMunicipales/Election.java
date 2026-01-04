@@ -1,7 +1,7 @@
 /*
  * MIT License
 
-Copyright (c) 2017, 2025 Frederic Lefevre
+Copyright (c) 2017, 2026 Frederic Lefevre
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -26,14 +26,15 @@ package org.fl.electionsMunicipales;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Properties;
+import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class Election {
 
 	private static final Logger electionLog = Logger.getLogger(Election.class.getName());
 	
-	private ArrayList<Resultat> resultats;
+	private List<Resultat> resultats;
 
 	private int inscrits;
 	private int totalSieges;
@@ -47,57 +48,17 @@ public class Election {
 	private final static int INVALID_INPUT = 2;
 	private final static String newLine = System.getProperty("line.separator");
 
-	public Election(Properties props) {
+	public Election() {
 
-		try {
-			inscrits = Integer.parseInt(props.getProperty("election.nbInscrits"));
-		} catch (Exception e) {
-			electionLog.warning("Exception reading property election.nbInscrits: " + e);
-			inscrits = 5000;
-		}
+		inscrits = Control.getInscrits();
+		totalSieges = Control.getITotalSieges();
+		seuil = Control.getSeuil();
+		siegesRepartis = Control.getSiegesRepartis();
 
-		try {
-			totalSieges = Integer.parseInt(props.getProperty("election.nbSieges"));
-		} catch (Exception e) {
-			electionLog.warning("Exception reading property election.nbSieges: " + e);
-			totalSieges = 29;
-		}
-
-		try {
-			seuil = Integer.parseInt(props.getProperty("election.seuil"));
-		} catch (Exception e) {
-			electionLog.warning("Exception reading property election.seuil: " + e);
-			seuil = 20;
-		}
-
-		String elm = props.getProperty("election.modeCalcul.conseilMunicipal");
-		if (elm.equals("true")) {
-			siegesRepartis = totalSieges / 2;
-		} else {
-			siegesRepartis = totalSieges;
-		}
-
-		// Listes électorales
-		resultats = new ArrayList<Resultat>();
-
-		boolean listeRemain = true;
-		String propListeName = "election.nomListe";
-		String nomListe;
-		int numListe = 1;
-
-		while (listeRemain) {
-			nomListe = props.getProperty(propListeName + numListe);
-			if (nomListe == null) {
-				listeRemain = false;
-			} else {
-				electionLog.info("Liste trouvée : " + nomListe);
-				resultats.add(new Resultat(new ListeElectorale(nomListe)));
-				numListe = numListe + 1;
-			}
-		}
+		resultats = Control.getListesElectorales().stream().map(le -> new Resultat(le)).collect(Collectors.toList());
 	}
 
-	public ArrayList<Resultat> getResultats() {
+	public List<Resultat> getResultats() {
 		return resultats;
 	}
 

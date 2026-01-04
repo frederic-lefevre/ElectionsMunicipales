@@ -64,7 +64,7 @@ public class ElectionsUI extends JFrame {
 		ApplicationTabbedPane electionTabs = new ApplicationTabbedPane(getRunningContext());
 
 		try {
-			Election election = new Election(Control.getProps());
+			Election election = new Election();
 
 			JPanel siegePanel = new JPanel();
 			siegePanel.setLayout(new BoxLayout(siegePanel, BoxLayout.Y_AXIS));
@@ -111,7 +111,7 @@ public class ElectionsUI extends JFrame {
 					ElectionsUI window = new ElectionsUI();
 					window.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.log(Level.SEVERE, "Exception while launching application", e);
 				}
 			}
 		});
