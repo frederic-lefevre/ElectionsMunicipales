@@ -1,7 +1,7 @@
 /*
  * MIT License
 
-Copyright (c) 2017, 2025 Frederic Lefevre
+Copyright (c) 2017, 2026 Frederic Lefevre
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -37,7 +37,7 @@ class ControlTest {
 	@Test
 	void runningContextTest() {
 		
-		RunningContext runningContext = Control.getRunningContext();
+		RunningContext runningContext = ElectionsUI.getRunningContext();
 		
 		assertThat(runningContext).isNotNull();
 		assertThat(runningContext.getName()).isNotNull().isEqualTo("org.fl.electionsMunicipales");
@@ -62,7 +62,7 @@ class ControlTest {
 	@Test
 	void buildInformationTest() throws JsonProcessingException {
 		
-		RunningContext runningContext = Control.getRunningContext();
+		RunningContext runningContext = ElectionsUI.getRunningContext();
 		
 		assertThat(runningContext).isNotNull();
 		
