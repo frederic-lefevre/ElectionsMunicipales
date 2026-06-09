@@ -59,7 +59,7 @@ public class ElectionsUI extends JFrame {
 
 		setBounds(50, 50, 1700, 900);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Calculateur de sièges");
+		setTitle("Calculateur de sièges  [" + getRunningContext().getVersion() + "]");
 
 		ApplicationTabbedPane electionTabs = new ApplicationTabbedPane(getRunningContext());
 
